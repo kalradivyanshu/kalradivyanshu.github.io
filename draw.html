@@ -1,0 +1,151 @@
+<html>
+<head>
+	<title>First Test</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+	.canvascontainer {
+		border-style: solid;
+		border-width:1px;
+		padding: 0px;
+	}
+	.margintop {
+		margin-top: 10px;
+	}
+	#drawcanvas {
+		cursor:crosshair;
+		background-color: white;
+	}
+	.brushsize {
+		width: 20px;
+	}
+	html, body {
+		max-width: 100%;
+		overflow-x: hidden;
+	}
+	</style>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<div class="row margintop" id="containercontainer">
+		<div class="col-md-3 col-md-offset-3 canvascontainer" id="canvasc">
+			<canvas id="drawcanvas" width = "340" height = "300">
+			</canvas>
+		</div>
+		<span id="coordinate"></span>
+	</div>
+	<div class="row">
+		<div class="col-md-3 col-md-offset-3">
+			<button class="btn btn-default eraser">Eraser</button>
+			<input type="range" class="brushsize" id="brushsize" value="10" min="1" max="50">
+			Brush Color: <input type="color" class="colorselect" value="#008000"><br>
+			<button class="btn btn-primary" onClick="saveit()">Download</button>
+			<img src="" class="output">
+			<!--BG-color: <input type="color" class="bgcolorselect" value="#ffffff">-->
+		</div>
+	</div>
+	<script type="text/javascript">
+		var x1 = -1,x2 = -1,y1 = -1,y2 = -1;
+		var clicked = false;
+		var color = "green";
+		var eraser = false;
+		var previouscolor = "green";
+		var size = 20;
+		$(".eraser").click(function () {
+			if(eraser == false)
+			{
+				previouscolor = color;
+				color = "white";
+				$(this).removeClass("btn-default");
+				$(this).addClass("btn-primary");
+				eraser = true;
+			}
+			else
+			{
+				eraser = false;
+				$(this).removeClass("btn-primary");
+				$(this).addClass("btn-default");
+				color = previouscolor;
+			}
+		});
+		function saveit()
+		{
+			var dataURL = $('#drawcanvas')[0].toDataURL();
+			console.log(dataURL);
+			$('.output').attr('src',dataURL);
+		}
+		$('#drawcanvas').mousedown(function() {
+			clicked = true;
+		});
+		$('#drawcanvas').mouseup(function() {
+			clicked = false;
+			x1 = -1;
+		});
+		$('#drawcanvas').mouseleave(function() {
+			clicked = false;
+			x1 = -1;
+		});
+		$('#drawcanvas').mousemove(function(evt) {
+			var left = $("#canvasc")[0].offsetLeft;
+			var top = $("#canvasc")[0].offsetTop;
+			var left1 = $("#containercontainer")[0].offsetLeft;
+			var top1 = $("#containercontainer")[0].offsetTop;
+			var x = event.clientX-left-this.offsetLeft-left1-10;
+			var y = event.clientY-top-this.offsetTop - top1+5;
+			var coor = "X coords: " + x + ", Y coords: " + y;
+			drawstroke($('#drawcanvas')[0].getContext('2d'),x,y);
+			$("#coordinate").text(coor);
+		});
+		function drawstroke(canvas,x,y){
+			//console.log(canvas)
+			if(clicked == true)
+			{
+				var flag = false;
+				if(x1 == -1|| y1 == -1)
+				{
+					x1 = x;
+					y1 = y;
+					flag = true;
+				}
+				else
+				{
+					x2 = x1;
+					y2 = y1;
+					x1 = x;
+					y1 = y;
+				}
+				canvas.beginPath();
+				canvas.arc(x,y,size/2,0,2*Math.PI);
+				canvas.lineWidth = 0;
+				canvas.fillStyle = color;
+	    		canvas.fill();
+	    		if(flag == false)
+	    			joincircles(canvas);
+			}
+		}
+		$('#brushsize').change(function() {
+			size = this.value;
+		})
+		$(".colorselect").change(function() {
+			if(eraser == false)
+				color = this.value;
+			else
+				previouscolor = this.value;
+		})
+		$(".bgcolorselect").change(function() {
+			$('#drawcanvas').css('background-color',this.value);
+		})
+		function joincircles(canvas)
+		{
+			if(x1 != -1 && x2 != -1)
+			{
+				canvas.beginPath();
+				canvas.lineWidth = size;
+				canvas.strokeStyle = color;
+				canvas.moveTo(x2,y2);
+				canvas.lineTo(x1,y1);
+				canvas.stroke();
+			}
+		}
+	</script>
+</body>
+</html>

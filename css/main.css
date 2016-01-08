@@ -1,0 +1,11 @@
+.headingcontainer {
+	background-color: rgba(0,0,0,0.5);
+	text-align: center;
+}
+.nameheading {
+	color: white;
+}
+.covercontains {
+	background: url('images/cover.png');
+	background-size: 25%;
+}

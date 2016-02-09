@@ -4,32 +4,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<title>Drawing App</title> 
-	<style>
-		.colorslist{
-			width: 15%;
-			position: absolute;
-			height: 40%;
-			border: 1px solid !important;
-		}
-		.setColor{
-			box-shadow: 0px 4px 4px 0px;
-		}
-		.bsizes{
-			width: 11%;
-			height: 80%;
-			border: 1px solid !important;
-			float: left;
-			margin: 0.5% 4%;
-			text-align: center;
-			font-size: 200%;
-		}
-		.brushsize{
-			background-image: url("images/brushsize.jpg");
-		}
-		.paintpallet1{
-			background-image: url("images/paint pallet.png");
-		}
-	</style>
     <script src="js/jquery-1.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript">
@@ -87,13 +61,10 @@
 		var d=new Date(ms+t[5]).toString()
 			.replace(/.*([0-9][0-9]:[0-9][0-9]:[0-9][0-9]).*/, '$1');
 		var x=String(ms%1000);
-		
 		while (x.length<3) x='0'+x;
 		//d+='.'+x;
 		d+='s';
-		//console.log(30-(d[6]+d[7]));
-		if(d[6]+d[7]=="30"){console.log("done");r();}
-		return "<div style='vertical-align: middle; text-align: center; height: 100%; width: 100%; display: table-cell; font-size: 200%;'><span>"+(30-(d[6]+d[7]))+"</span><span>s</span></div>";
+		return d;
 		}
 
 		function load() {
@@ -116,7 +87,7 @@
 </head> 
 
 <body style="margin: 0px;" onload="load();">
-		<div id="outlineimage" style='position: fixed; height: 100%; width: 100%; background-image: url("images/b.png"); background-repeat: no-repeat; background-position: center top; z-index: -1000; align-content: center;margin: auto;left: 0px;right: 0px;'>
+		<div id="outlineimage" style='position: fixed; height: 100%; width: 100%; background-image: url("images/b.png"); background-repeat: no-repeat; background-position: center top; z-index: -1000; background-size: 100% 100%; align-content: center;'>
 		<canvas  id="theCanvas" style="margin-left: 12% ;margin-right: 12%;">
 			<h1>Your browser does not support the HTML5 Canvas Element.</h1>
 		</canvas>
@@ -128,19 +99,13 @@
 			</div>
 			
 			<div id="eraser" class="elemfull drawingtool" style='position: absolute; left:30%;width:10%;background-image: url("images/eraser .png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
-			<div id="paintpallet" class="elemhalf2 drawingtool paintpallet1" style='position:absolute; top:50%; left:40%;width:10%;fixed; background-repeat: no-repeat; background-size: 100% 100%;'></div>
-			<div id="timer" class="elemhalf2" style="position: absolute; top: 50%; left: 50%; width: 20%; background-repeat: no-repeat; text-align: center; vertical-align: middle; height: 58.75px; display: table;">
-					<div><span style="padding: 20% 0px 20% 40%;font-size: 200%;position: relative;">26</span><span>s</span></div>
+			<div id="paintpallet" class="elemhalf2" style='position:absolute; top:50%; left:40%;width:10%;fixed; background-image: url("images/paint pallet.png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
+			<div id="timer" class="elemhalf2"style='position: absolute;top:50%; left:50%;width:20%;background-repeat: no-repeat;text-align: center;vertical-align: middle;font-size: 200%;'>
+					<span style="padding: 20% 0px 20% 40%;font-size: 200%;position: relative;">26</span><span>s</span>
 			</div>
-			<div id="reset_upload" onclick="r()" class="elemhalf2 timertool " style='position:absolute;top:50%; left:70%;width:15%; fixed; background-image: url("images/reset&upload.png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
+			<div id="reset_upload" onclick="r()" class="elemhalf2 timertool" style='position:absolute;top:50%; left:70%;width:15%; fixed; background-image: url("images/reset&upload.png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
 			<div id="start" onclick="ss()" class="elemhalf2 timertool" style='position: absolute;top:50%; left:85%;width:15%; background-image: url("images/start button.png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
-			<div id="paintpallet1" class="elemhalf1" style='position: absolute;top:; left:40%;width:60%;'>
-				<div style="left: 2%;" class="colorslist"></div><div style="left: 18%;background-color: rgb(0, 0, 0);" class="colorslist"></div><div style="left: 34%; background-color: rgb(129, 129, 129);" class="colorslist"></div><div style="left: 50%; background-color: rgb(193, 193, 193);" class="colorslist"></div><div style="left: 66%;background-color: rgb(255, 255, 255);" class="colorslist"></div><div style="left: 82%; background-color: rgb(166, 12, 0);" class="colorslist"></div>
-				<div style="left: 2%; top: 50%; background-color: rgb(220, 14, 2);" class="colorslist"></div><div style="top: 50%; left: 18%; background-color: rgb(239, 84, 2);" class="colorslist"></div><div style="top: 50%; left: 34%; background-color: rgb(247, 195, 16);" class="colorslist"></div><div style="top: 50%; left: 50%; background-color: rgb(242, 232, 80);" class="colorslist"></div><div style="top: 50%; left: 66%; background-color: rgb(208, 221, 16);" class="colorslist"></div><div style="top: 50%; left: 82%; background-color: rgb(184, 212, 35);" class="colorslist"></div>
-			</div>
-			<div id="brushsize" class="elemhalf1" style='position: absolute;top:; left:40%;width:60%;display:none;'>
-			<div class="bsizes">5</div><div class="bsizes">7</div><div class="bsizes">10</div><div class="bsizes">15</div><div class="bsizes">20</div>
-			</div>
+			<div id="paintpallet1" class="elemhalf1" style='position: absolute;top:; left:40%;width:60%; background-image: url("images/paint pallet1.png"); background-repeat: no-repeat; background-size: 100% 100%;'></div>
 		<div>
 
 </body></html>

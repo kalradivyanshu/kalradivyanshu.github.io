@@ -15,8 +15,9 @@ $(".eraser").click(function () {
     window.previouscolor = window.color;
     window.color = "white";
     eraser = true;
+    window.brushtype = "eraser";
     psize = size;
-    size = 30;
+    size = 10;
 	}
 	else
 	{
@@ -74,7 +75,11 @@ function drawstroke(canvas,x,y) {
        canvas.fillStyle = window.color;
   	   canvas.fill();*/
   	    if(flag == false) {
-          if(window.brushtype == "marker") {
+          if(window.brushtype == "eraser"){
+            console.log("eraser");
+            joincircles(canvas);
+          }
+          else if(window.brushtype == "marker") {
   	    	  joincircles(canvas);
           }
           else if(window.brushtype == "pen") {

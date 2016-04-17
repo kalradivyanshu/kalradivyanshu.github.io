@@ -101,6 +101,9 @@ $('.color').click(function() {
   window.color = $(this).css('background-color');
   $("#input_example").attr('value', window.color);
 });
+$('.col4').click(function() {
+  $("#drawcanvas").css('background-color', '#000000');
+})
 $('.colorpallet').click(function(){
   $('.selectcolor').toggle();
 });

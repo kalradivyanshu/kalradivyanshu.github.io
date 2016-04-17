@@ -1,0 +1,112 @@
+.maincontainer {
+  background-image: url("../images/doodlebackground.png");
+  width:630px;
+  height:680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.maincanvas {
+  margin-top: 49px;
+  margin-left: 83px;
+  margin-right: auto;
+}
+.marker {
+  margin-left:83px;
+  margin-top:69px;
+}
+.pen {
+  margin-left:7px;
+  margin-top:13px;
+}
+.brush {
+  margin-left: 7px;
+  margin-top:42px;
+}
+.eraser {
+  margin-left: 7px;
+  margin-top:80px;
+}
+.colorpallet {
+  margin-left: 7px;
+  margin-top:113px;
+  border: none;
+}
+.modallink {
+  color:white;
+}
+.color {
+  height: 30px;
+  margin-left: 2px;
+  margin-top:4px;
+  border-radius:6px;
+}
+.colors {
+  margin-left: auto;
+  margin-right: auto;
+}
+.col1 {
+  background-color: #000000;
+}
+.col2 {
+  background-color: #808080;
+}
+.col3 {
+  background-color: #6495ED;
+}
+.col4 {
+  background-color: #FFFFFF;
+}
+.col5 {
+  background-color: #A41400;
+}
+.col6 {
+  background-color: #DB1608;
+}
+.col7 {
+  background-color: #EE5509;
+}
+.col8 {
+  background-color: #F7C217;
+}
+.col9 {
+  background-color: #F2E751;
+}
+.col10 {
+  background-color: #CFDC17;
+}
+.col11 {
+  background-color: #B7D328;
+}
+
+.selectcolor {
+  width: 224px;
+  height: 94px;
+  z-index: 100;
+  position: absolute;;
+  top: 472px;
+  left: 645px;
+  display: none;
+}
+.wand {
+  background-image: url("../images/wand.png");
+}
+.buttonimg {
+  margin-top: 117px;
+}
+.timer {
+  position: absolute;
+  top: 466px;
+  left: 700px;
+  margin-top: 117px;
+  margin-left: 2px;
+  z-index: 101;
+}
+.time {
+  font-size: 30px;
+}
+.unit {
+  font-size: 15px;
+}
+.startb {
+  margin-left: 59px;
+}

@@ -152,7 +152,7 @@ function spray(ctx)
 }
 function shaded(ctx)
 {
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 0.1;
   ctx.lineJoin = ctx.lineCap = 'round';
 
     if (!clicked) return;

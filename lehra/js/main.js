@@ -115,6 +115,8 @@ function animated() {
       {
         lahras.splice(j,1);
         score += 10;
+        if(score%50 == 0)
+          lspeed -= 0.02;
         console.log(score);
       }
     }

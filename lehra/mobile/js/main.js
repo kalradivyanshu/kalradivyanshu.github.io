@@ -58,6 +58,12 @@ $('#gamearea').mousemove(function(e){
   if(alive == true)
     pad.updatecenter(mouse_x);
 });
+$('#gamearea').on("vmousemove", function(e){
+  var mouse_x = e.pageX - this.offsetLeft;
+  //console.log(mouse_x);
+  if(alive == true)
+    pad.updatecenter(mouse_x);
+});
 
 var lahra = function(speed,x1) {
   this.x1 = x1;
@@ -122,7 +128,7 @@ function animated() {
       if(life == 0)
       {
         alive = false;
-        lspeed = 0;
+        lspeed = 1;
         pad.updatecenter(-100);
       }
     }

@@ -49,18 +49,20 @@ function draw() {
   scale(5);
   var hu = 0;
   noFill();
-  beginShape();
-  for(var i = 0; i < points.length; i++)
+  //beginShape();
+  rotate(angle);
+  for(var i = 1; i < points.length; i++)
   {
     var v = points[i];
+    var vP = points[i-1];
     stroke(hu, 255,255);
-    vertex(v.x,v.y);
-    hu += 0.1;
+    line(vP.x,vP.y,v.x,v.y);
+    hu += 1;
     if(hu > 255)
       hu = 0;
   }
   //rotate(angle);
-  endShape();
+  //endShape();
 }
 
 function mouseClicked() {

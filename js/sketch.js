@@ -1,12 +1,14 @@
-var x = 0.01, y = 0, z = 0;
-var a = 10, b = 28, c = 8.0/3.0;
-var angle = 0;
-var buttonX, buttonY;
-var points = Array();
+var fireworks = [];
+var gravity;
 var fontLight;
+var buttonX, buttonY;
 function setup() {
   createCanvas(window.innerWidth,window.innerHeight);
   colorMode(HSB);
+  stroke(255);
+  gravity = createVector(0, 0.2);
+  strokeWeight(4);
+  firework = new Particle(random(width),height);
   fontLight = loadFont("fonts/OpenSansLight.ttf");
 }
 function Write()
@@ -26,40 +28,18 @@ function Write()
   buttonX = width/2-50, buttonY = height-100;
   rect(buttonX,buttonY,100,35);
 }
-function PVector(x,y,z)
-{
-    this.x = x;
-    this.y = y;
-    this.z = z;
-}
 function draw() {
-  background(0);
   Write();
-  angle += 0.01;
-  var dt = 0.01;
-  var dx = (a * (y - x))*dt;
-  var dy = (x * (b - z) - y)*dt;
-  var dz = (x * y - c * z)*dt;
-  x += dx;
-  y += dy;
-  z += dz;
-  //console.log(x,y,z);
-  points.push(new PVector(x,y,z));
-  translate(width/2,height/2);
-  scale(5);
-  var hu = 0;
-  noFill();
-  //beginShape();
-  rotate(angle);
-  for(var i = 1; i < points.length; i++)
+  colorMode(RGB);
+  background(0,25);
+  if(random(1) < 0.03)
+      fireworks.push(new Firework());
+  for(var i = fireworks.length-1 ; i >= 0; i--)
   {
-    var v = points[i];
-    var vP = points[i-1];
-    stroke(hu, 255,255);
-    line(vP.x,vP.y,v.x,v.y);
-    hu += 1;
-    if(hu > 255)
-      hu = 0;
+      fireworks[i].update();
+      fireworks[i].show();
+      if(fireworks[i].done())
+          fireworks.splice(i,1);
   }
   //rotate(angle);
   //endShape();

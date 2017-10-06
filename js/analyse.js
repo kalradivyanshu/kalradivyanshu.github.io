@@ -15,14 +15,28 @@ function isEmoji(str) {
         return false;
     }
 }
+function makeShiftLazyTest(line) {
+       if(line.indexOf(" AM ") >= 0 || line.indexOf(" PM ") >= 0 && line.indexOf("/") >= 0 && line.indexOf(":") >= 0 && line.indexOf(" - ") >= 0 && line.indexOf(", ") >= 0)
+              return true;
+       return false;
+}
 function setProgress(per) {
        $("#progress").attr("value", per);
 }
 function toValidDate(datestring){
-    return datestring.replace(/(\d{2})(\/)(\d{2})/, "$3$2$1");
+       if(window.switch == false)
+              return datestring;
+       ts = datestring.split("/");
+       if(ts.length < 2)
+              return "";
+       tmp = ts[0];
+       ts[0] = ts[1];
+       ts[1] = tmp;
+       return ts.join("/");
 }
 function getDate(str)
 {
+       org = str;
        str = str.split(" - ");
        if(str.length < 2)
               return "Invalid Date";
@@ -30,7 +44,39 @@ function getDate(str)
        str = toValidDate(str);
        //console.log(str);
        d = new Date(str);
+       if(d.getFullYear() < 2012)
+              console.log(org);
        return d;
+}
+function detectDateFormat(lines)
+{
+       window.switch = false;
+       for (var i = 0, len = lines.length; i < len; i++) {
+              line = lines[i];
+              if(makeShiftLazyTest(line) == false)
+                     continue;
+              str = line.split(" - ");
+              if(str.length < 2)
+                     continue;
+              date = str[0];
+              ts = date.split("/");
+              if(ts.length < 2)
+                     continue;
+              first = parseInt(ts[0]);
+              second = parseInt(ts[1]);
+              if(first > 12)
+              {
+                     console.log("Detected DD/MM/YYYY", line);
+                     window.switch = true;
+                     break;
+              }
+              if(second > 12)
+              {
+                     console.log("Detected MM/DD/YYYY", line);
+                     window.switch = false;
+                     break;
+              }
+       }
 }
 function runAnalysis()
 {
@@ -44,6 +90,14 @@ function runAnalysis()
        window.name1 = name1;
        window.name2 = name2;
        var lines = txt.split("\n");
+       dateFor = $("#dateFormat").val();
+       if(dateFor == "1")
+              window.switch = true;
+       else if(dateFor == "2")
+              window.switch = false;
+       else {
+              detectDateFormat(lines);
+       }
        console.log(lines.length);
        name1Per = 0;
        name2Per = 0;
@@ -69,6 +123,8 @@ function runAnalysis()
        for (var i = 0, len = lines.length; i < len; i++) {
               //console.log(lines[i]);
               line = lines[i];
+              if(makeShiftLazyTest(line) == false)
+                     continue;
               d = getDate(line);
               if(d == "Invalid Date") {
                      continue;
@@ -87,9 +143,15 @@ function runAnalysis()
               if(whos == 0)
               {
                      if(overAll0[monthYear] == undefined)
+                     {
+                            console.log(monthYear, line);
                             overAll0[monthYear] = 0;
+                     }
                      if(overAll1[monthYear] == undefined)
+                     {
+                            console.log(monthYear, line);
                             overAll1[monthYear] = 0;
+                     }
                      overAll0[monthYear] += 1;
                      monthMessages0[month] += 1;
                      dayMessages0[day] += 1;
@@ -97,9 +159,15 @@ function runAnalysis()
               else
               {
                      if(overAll0[monthYear] == undefined)
+                     {
+                            console.log(monthYear, line);
                             overAll0[monthYear] = 0;
+                     }
                      if(overAll1[monthYear] == undefined)
+                     {
+                            console.log(monthYear, line);
                             overAll1[monthYear] = 0;
+                     }
                      overAll1[monthYear] += 1;
                      monthMessages1[month] += 1;
                      dayMessages1[day] += 1;
@@ -167,6 +235,10 @@ function runAnalysis()
        }
        for(var i = 0; i < 12; i++)
        {
+              if(responseNMonthMessages0[i] == 0)
+                     responseNMonthMessages0[i] = 1;
+              if(responseNMonthMessages1[i] == 0)
+                     responseNMonthMessages1[i] = 1;
               responseMonthMessages0[i] /= responseNMonthMessages0[i];
               responseMonthMessages1[i] /= responseNMonthMessages1[i];
               responseMonthMessages0[i] /= 60000;
@@ -174,6 +246,10 @@ function runAnalysis()
        }
        for(var i = 0; i < 7; i++)
        {
+              if(responseNDayMessages0[i] == 0)
+                     responseNDayMessages0[i] = 1;
+              if(responseNDayMessages1[i] == 0)
+                     responseNDayMessages1[i] = 1;
               responseDayMessages0[i] /= responseNDayMessages0[i];
               responseDayMessages1[i] /= responseNDayMessages1[i];
               responseDayMessages0[i] /= 60000;

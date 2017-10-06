@@ -24,6 +24,7 @@ function save(dump)
        });
 }
 $("#save").on("click", function() {
+       $("#save").html("Saving...");
        save(window.b64);
 });
 function processDump(data)

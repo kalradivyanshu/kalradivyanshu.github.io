@@ -1,10 +1,182 @@
 <html>
-  <head>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
-    <script src="js/sketch.js"></script>
-    <script src="js/firework.js"></script>
-    <script src="js/particle.js"></script>
-  </head>
-  <body style="overflow:hidden;padding:0px;margin:0px;">
-  </body>
+<head>
+<meta charset='utf-8'>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+
+<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+<link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+       <div class = "container" id = "inputData">
+              <div class = "row top">
+                     <div class = "column centered">
+                            <h4> Chat Analyser | Divyanshu Kalra </h4>
+                            <blockquote id = "e1" class = "errorHolder">
+                                   <p class = "error"><em>Error: All fields are required.</em></p>
+                            </blockquote>
+                     </div>
+              </div>
+              <div class = "row">
+                     <div class = "column column-60 column-offset-20">
+                            <input type = "text" id = "name1" placeholder = "Contact's Name (As saved in your contacts)">
+                            <input type = "text" id = "name2" placeholder = "Your WhatsApp name">
+                            <textarea placeholder="Paste Chat History..." id = "chat" rows = "100" autofocus></textarea>
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <button id = "go">Analyse</button>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <div class = "container" id = "loading" style = "display: None;">
+              <div class = "loader top">
+                     Analysing... <br>
+                     <progress value="56" max="100" id = "progress"></progress>
+              </div>
+       </div>
+       <div class = "container analytics" id = "showAnalytics"  style = "display: None;">
+              <div class = "row top">
+                     <div class = "column centered">
+                            <h1 id = "analyticTitle"> Name1 & Name2 | Chat Analysis </h1>
+                            <h4>Total Messages Exchanged: <span id="totalmess"></span></h4>
+                            <h5>Since: <span id="startTime"></span> Till: <span id="stopTime"></span></h5>
+                     </div>
+              </div>
+              <div class = "dataSet">
+                     <div class = "part">
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <h2> Messages Sent </h2>
+                                          <h3> All Time </h3>
+                                   </div>
+                            </div>
+                            <div class = "row">
+                                   <div class = "column column-99 column-offset-1">
+                                          <canvas id="totalMessages" height = "100"></canvas>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+              <div class = "dataSet">
+                     <div class = "part">
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <h2> Percentages Of Messages Sent </h2>
+                                          <h3> In Total </h3>
+                                   </div>
+                            </div>
+                            <div class = "row">
+                                   <div class = "column column-33 column-offset-33">
+                                          <canvas id="piePercent" height = "300"></canvas>
+                                   </div>
+                            </div>
+                     </div>
+                     <div class = "part MultiPart">
+                            <div class = "row">
+                                   <div class = "column">
+                                          <div class = "row">
+                                                 <div class = "column centered">
+                                                        <h3> By Month </h3>
+                                                 </div>
+                                          </div>
+                                          <div class = "row">
+                                                 <div class = "column column-90 column-offset-10">
+                                                        <canvas id="months" height = "300"></canvas>
+                                                 </div>
+                                          </div>
+                                   </div>
+                                   <div class = "column">
+                                          <div class = "row">
+                                                 <div class = "column centered">
+                                                        <h3> By Day </h3>
+                                                 </div>
+                                          </div>
+                                          <div class = "row">
+                                                 <div class = "column column-90 column-offset-10">
+                                                        <canvas id="days" height = "300"></canvas>
+                                                 </div>
+                                          </div>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+              <div class = "dataSet">
+                     <div class = "part">
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <h2> Average Time Taken Between Messages </h2>
+                                          <h3> In Total </h3>
+                                   </div>
+                            </div>
+                            <div class = "row">
+                                   <div class = "column column-33 column-offset-33">
+                                          <canvas id="timeTotal" height = "300"></canvas>
+                                   </div>
+                            </div>
+                     </div>
+                     <div class = "part MultiPart">
+                            <div class = "row">
+                                   <div class = "column">
+                                          <div class = "row">
+                                                 <div class = "column centered">
+                                                        <h3> By Month </h3>
+                                                 </div>
+                                          </div>
+                                          <div class = "row">
+                                                 <div class = "column column-90 column-offset-10">
+                                                        <canvas id="timemonths" height = "300"></canvas>
+                                                 </div>
+                                          </div>
+                                   </div>
+                                   <div class = "column">
+                                          <div class = "row">
+                                                 <div class = "column centered">
+                                                        <h3> By Day </h3>
+                                                 </div>
+                                          </div>
+                                          <div class = "row">
+                                                 <div class = "column column-90 column-offset-10">
+                                                        <canvas id="timedays" height = "300"></canvas>
+                                                 </div>
+                                          </div>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+              <div class = "dataSet" id = "saveAndShare">
+                     <div class = "part">
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <button id = "save">Save and Share</button>
+                                          <span id="url"></span>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+              <div class = "dataSet" style="display: None;">
+                     <div class = "part">
+                            <div class = "row">
+                                   <div class = "column centered">
+                                          <h2> Most Used Emojis </h2>
+                                          <h3> All Time </h3>
+                                   </div>
+                            </div>
+                            <div class = "row">
+                                   <div class = "column column-99 column-offset-1">
+                                          <canvas id="emoji" height = "100"></canvas>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <script language="javascript" src="js/save.js"></script>
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+       <script type="text/javascript" src="./js/makeCharts.js"></script>
+       <script type="text/javascript" src="./js/analyse.js"></script>
+</body>
 </html>

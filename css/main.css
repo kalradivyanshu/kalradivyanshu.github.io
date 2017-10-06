@@ -1,11 +1,36 @@
-.headingcontainer {
-	background-color: rgba(0,0,0,0.5);
-	text-align: center;
+body {
+       font-family: 'Open Sans', sans-serif;
 }
-.nameheading {
-	color: white;
+.top {
+       margin: 2%;
 }
-.covercontains {
-	background: url('images/cover.png');
-	background-size: 25%;
+#chat {
+       height: 100%;
+}
+.centered {
+       text-align: center;
+}
+.part {
+       margin-top: 7%;
+}
+.analytics {
+       margin-bottom: 5%;
+}
+#loading {
+       text-align: center;
+}
+.loader {
+       display: inline-block;
+}
+#progress {
+       width: 50em;
+}
+.error {
+       color: red;
+}
+.errorHolder {
+       display: None;
+}
+#go {
+       display: inline-block;
 }

@@ -16,7 +16,15 @@ function isEmoji(str) {
     }
 }
 function makeShiftLazyTest(line) {
-       if(line.indexOf(" AM ") >= 0 || line.indexOf(" PM ") >= 0 && line.indexOf("/") >= 0 && line.indexOf(":") >= 0 && line.indexOf(" - ") >= 0 && line.indexOf(", ") >= 0)
+      //square bracket shit
+      // if(line.indexOf("[")==0){
+      //
+      //   console.log("forwarded message detected");
+      //   return false;
+      //
+      // }
+       if(line.indexOf(" AM ") >= 0 || line.indexOf(" PM ") >= 0 || line.indexOf(" a.m. ") >= 0 || line.indexOf(" p.m. ") >= 0)
+          if( line.indexOf("/") >= 0 && line.indexOf(":") >= 0 && line.indexOf(" - ") >= 0 && line.indexOf(", ") >= 0)
               return true;
        return false;
 }
@@ -24,22 +32,42 @@ function setProgress(per) {
        $("#progress").attr("value", per);
 }
 function toValidDate(datestring){
-       if(window.switch == false)
-              return datestring;
+
+      if(datestring.includes("a.m.")){
+        var newString = datestring.replace("a.m.","AM");
+        datestring = newString;
+      }
+
+      if(datestring.includes("p.m.")){
+        var newString = datestring.replace("p.m.","PM");
+        datestring = newString;
+      }
        ts = datestring.split("/");
+
+       var year = ts[2].split(",");
+       year[0] = year[0].substr(year[0].length-2,year[0].length);
+      ts[2]= year.join(",");
+
        if(ts.length < 2)
               return "";
+
+      if(window.switch == false)
+          return ts.join("/");
+
+      // switching month and date
        tmp = ts[0];
        ts[0] = ts[1];
        ts[1] = tmp;
+
        return ts.join("/");
 }
 function getDate(str)
 {
        org = str;
        str = str.split(" - ");
-       if(str.length < 2)
+       if(str.length < 2){
               return "Invalid Date";
+       }
        str = str[0];
        str = toValidDate(str);
        //console.log(str);
@@ -53,7 +81,7 @@ function detectDateFormat(lines)
        window.switch = false;
        for (var i = 0, len = lines.length; i < len; i++) {
               line = lines[i];
-              if(makeShiftLazyTest(line) == false)
+              if( (line) == false)
                      continue;
               str = line.split(" - ");
               if(str.length < 2)
@@ -64,6 +92,7 @@ function detectDateFormat(lines)
                      continue;
               first = parseInt(ts[0]);
               second = parseInt(ts[1]);
+
               if(first > 12)
               {
                      console.log("Detected DD/MM/YYYY", line);
@@ -121,11 +150,15 @@ function runAnalysis()
        var responseNDayMessages1 = [0, 0, 0, 0, 0, 0, 0];
        var whos = null;
        for (var i = 0, len = lines.length; i < len; i++) {
-              //console.log(lines[i]);
               line = lines[i];
-              if(makeShiftLazyTest(line) == false)
-                     continue;
+              if(makeShiftLazyTest(line) == false){
+                console.log("Skipping iteration number :" + i);
+                continue;
+
+              }
+
               d = getDate(line);
+
               if(d == "Invalid Date") {
                      continue;
               }

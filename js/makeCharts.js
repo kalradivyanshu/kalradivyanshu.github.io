@@ -165,7 +165,7 @@ function generateChart()
               "data": {
                      labels: [window.name1, window.name2],
                      "datasets": [{
-                       label: "Average Time Taken Between Messages",
+                       label: "Time (Minutes)",
                        backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(255, 205, 86, 0.5)"],
                        borderColor: ["rgb(255, 99, 132)", "rgb(255, 205, 86)"],
                        borderWidth: 1,

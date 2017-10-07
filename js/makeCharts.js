@@ -61,15 +61,13 @@ function generateChart()
                    borderColor: "rgb(198, 212, 87)",
                    backgroundColor: "rgba(198, 212, 87, 0.5)",
                    fill: false,
-                   data: window.overAll0Dat,
-                   yAxisID: "y-axis-1",
+                   data: window.overAll0Dat
               }, {
                    label: window.name2,
                    borderColor: "rgb(100, 149, 237)",
                    backgroundColor: "rgba(100, 149, 237, 0.5)",
                    fill: false,
-                   data: window.overAll1Dat,
-                   yAxisID: "y-axis-2"
+                   data: window.overAll1Dat
               }]
        };
        var totalMessages = new Chart(total, {
@@ -85,16 +83,6 @@ function generateChart()
                                   display: true,
                                   position: "left",
                                   id: "y-axis-1",
-                            },{
-                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: true,
-                            position: "right",
-                            id: "y-axis-2",
-
-                               // grid line settings
-                            gridLines: {
-                                   drawOnChartArea: false, // only want the grid lines for one axis to show up
-                            },
                             }],
                      }
               }

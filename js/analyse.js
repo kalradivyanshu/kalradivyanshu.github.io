@@ -23,7 +23,7 @@ function makeShiftLazyTest(line) {
       //   return false;
       //
       // }
-       if(line.indexOf(" AM ") >= 0 || line.indexOf(" PM ") >= 0 || line.indexOf(" a.m. ") >= 0 || line.indexOf(" p.m. ") >= 0)
+       if(line.indexOf(" P.M. ") >= 0 || line.indexOf(" A.M. ") >= 0 || line.indexOf(" am ") >= 0 || line.indexOf(" pm ") >= 0 || line.indexOf(" AM ") >= 0 || line.indexOf(" PM ") >= 0 || line.indexOf(" a.m. ") >= 0 || line.indexOf(" p.m. ") >= 0)
           if( line.indexOf("/") >= 0 && line.indexOf(":") >= 0 && line.indexOf(" - ") >= 0 && line.indexOf(", ") >= 0)
               return true;
        return false;
@@ -251,20 +251,24 @@ function runAnalysis()
               overAll1Dat.push(overAll1[key]);
        }
        totalMessages = name1Per + name2Per;
-       total0 = (name1Per/totalMessages)*100;
-       total1 = (name2Per/totalMessages)*100;
+       total0 = Math.floor(name1Per/totalMessages*100);
+       total1 = Math.floor(name2Per/totalMessages*100);
 
        for(var i = 0; i < 12; i++)
        {
               t = monthMessages0[i] + monthMessages1[i];
               monthMessages0[i] /= t;
               monthMessages1[i] /= t;
+              monthMessages0[i] = Math.floor(monthMessages0[i]*100);
+              monthMessages1[i] = Math.floor(monthMessages1[i]*100);
        }
        for(var i = 0; i < 7; i++)
        {
               t = dayMessages0[i] + dayMessages1[i];
               dayMessages0[i] /= t;
               dayMessages1[i] /= t;
+              dayMessages0[i] = Math.floor(dayMessages0[i]*100);
+              dayMessages1[i] = Math.floor(dayMessages1[i]*100);
        }
        for(var i = 0; i < 12; i++)
        {
@@ -276,6 +280,8 @@ function runAnalysis()
               responseMonthMessages1[i] /= responseNMonthMessages1[i];
               responseMonthMessages0[i] /= 60000;
               responseMonthMessages1[i] /= 60000;
+              responseMonthMessages0[i] = Math.floor(responseMonthMessages0[i]);
+              responseMonthMessages1[i] = Math.floor(responseMonthMessages1[i]);
        }
        for(var i = 0; i < 7; i++)
        {
@@ -287,6 +293,8 @@ function runAnalysis()
               responseDayMessages1[i] /= responseNDayMessages1[i];
               responseDayMessages0[i] /= 60000;
               responseDayMessages1[i] /= 60000;
+              responseDayMessages0[i] = Math.floor(responseDayMessages0[i]);
+              responseDayMessages1[i] = Math.floor(responseDayMessages1[i]);
        }
        avgResp0 = 0;
        avgResp1 = 0;
@@ -294,8 +302,8 @@ function runAnalysis()
               avgResp0 += responseMonthMessages0[i];
               avgResp1 += responseMonthMessages1[i];
        }
-       avgResp0 /= 12;
-       avgResp1 /= 12;
+       avgResp0 = Math.floor(avgResp0/12);
+       avgResp1 = Math.floor(avgResp1/12);
        window.totalMessages = totalMessages;
        window.total0 = total0;
        window.total1 = total1;

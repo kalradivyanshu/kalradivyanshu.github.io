@@ -17,14 +17,14 @@ function save(dump)
               url: "https://whatsappanalysis.herokuapp.com/generate/",
               data: {data : dump},
               success: function(url) {
-                     fullurl = "Saved! URL to this analytics: https://kalradivyanshu.github.io/?u="+url;
+                     fullurl = "URL to this analytics: https://kalradivyanshu.github.io/?u="+url;
                      $("#save").hide();
                      $("#url").html(fullurl);
               }
        });
 }
 $("#save").on("click", function() {
-       $("#save").html("Saving...");
+       $("#save").html("Generating URL...");
        save(window.b64);
 });
 function processDump(data)

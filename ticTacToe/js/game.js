@@ -94,6 +94,7 @@ function draw() {
         action = AI.action(window.gameState);
         console.log(action);
         para = envir.action(action, 0);
+        oldpara = para;
         console.log(para);
         while(para[2] == -10) {
             action = int(Math.random()*9);
@@ -102,6 +103,7 @@ function draw() {
                 break;
             }
         }
+        para = oldpara;
         //[flatten(this_state), flatten(window.gameState), reward, done]
         //state, action, next_state, reward, done
         AI.remember(para[0], action, para[1], para[2], para[3]);

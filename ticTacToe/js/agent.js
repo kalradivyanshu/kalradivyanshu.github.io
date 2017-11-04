@@ -28,14 +28,14 @@ function agent()
     this.model = new brain.NeuralNetwork({
                           activation: 'sigmoid',
                           hiddenLayers: [20, 20],
-                          learningRate: 0.1
+                          learningRate: 0.01
                         });
     this.trainingPara = {
               errorThresh: 0.005,  // error threshold to reach
               iterations: 10,   // maximum training iterations
               log: true,           // console.log() progress periodically
               logPeriod: 10,       // number of iterations between logging
-              learningRate: 0.1    // learning rate
+              learningRate: 0.01    // learning rate
     }
     randOut = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     randOut[int(Math.random()*9)] = 1;

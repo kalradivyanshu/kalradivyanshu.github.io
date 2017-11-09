@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>
+    Drawing Interface
+  </title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+  <script type="Javascript/Text">
+  window.color = "#6495ED";
+  window.draw = true;
+  window.brushtype = "marker";
+  </script>
+</head>
+<body style="font-family: 'Open Sans', sans-serif;">
+  <div class="maincontainer" id="canvasc">
+    <canvas class="maincanvas" id="drawcanvas" width=478 height=408>
+    </canvas>
+    <img src="./images/marker.png" class="marker types b">
+    <img src="./images/pen.png" class="pen types b">
+    <img src="./images/brush.png" class="brush types b">
+    <img src="./images/eraser.png" class="eraser types">
+    <img src="./images/paintpallet.png" class="colorpallet">
+    <div class="selectcolor">
+      <div class="row">
+        <div class="col-md-1 wand color"></div>
+        <div class="col-md-1 col1 color"></div>
+        <div class="col-md-1 col2 color"></div>
+        <div class="col-md-1 col3 color"></div>
+        <div class="col-md-1 col4 color"></div>
+        <div class="col-md-1 col5 color"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-1 col6 color"></div>
+        <div class="col-md-1 col7 color"></div>
+        <div class="col-md-1 col8 color"></div>
+        <div class="col-md-1 col9 color"></div>
+        <div class="col-md-1 col10 color"></div>
+        <div class="col-md-1 col11 color"></div>
+      </div>
+    </div>
+    <div class="timer"><span class="time">30</span><span class="unit">s</span></div>
+    <img src="./images/start.png" class="buttonimg startb">
+    <img src="./images/reset.png" class="buttonimg resetb">
+    <div id="colorwheel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="width:200px;height:200px;margin-left:auto;margin-right:auto;">
+      <div class="modal-body" style="width:200px;height:200px;margin-left:auto;margin-right:auto;">
+        <div id="colorwheelholder">
+          <input id="input_example" type="text">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="./js/draw.js"></script>
+  <script src="./js/raphael.js"></script>
+  <script src="./js/colorwheel.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/controls.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

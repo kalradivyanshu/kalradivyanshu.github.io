@@ -21,6 +21,7 @@
                             </blockquote>
                      </div>
               </div>
+              <span id="rougeText">I will fuck up everything!</span>
               <div class = "row">
                      <div class = "column column-60 column-offset-20">
                             <input type = "text" id = "name1" placeholder = "Contact's Name (As saved in your contacts)">
@@ -34,7 +35,7 @@
                             <textarea placeholder="Paste Chat History..." id = "chat" rows = "100" autofocus></textarea>
                             <div class = "row">
                                    <div class = "column centered">
-                                          <button id = "go">Analyse</button>
+                                        <button id = "go" style = "background-color: red">Analyse</button>
                                    </div>
                             </div>
                      </div>
@@ -192,6 +193,11 @@
        <script src="https://amp.ai/libs/f27804ee7849d43e.js"></script>
        <script>
        amp.observe("userInfo",{lang:"en", country:"china", premium:false});
+       </script>
+       <script>
+            if (Math.random() < 0.5) {
+                $("#rougeText").hide();
+            }
        </script>
        <script>
               window.dataLayer = window.dataLayer || [];
